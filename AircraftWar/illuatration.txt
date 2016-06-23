@@ -1,0 +1,43 @@
+AircraftWar:
+主要技术：canvas绘图和定时器应用。
+功能分析：
+游戏分六个阶段
+1.DOWNLOAD:下载游戏所必须的图片
+2.READY：就绪阶段，用户点一下画布
+3.LOADING:加载阶段，小飞机就位
+4.PLAY:游戏进行阶段
+5.PAUSE:游戏暂停阶段
+6.GAMEOVER:游戏结束阶段
+var imgBackground;
+var imgBullet1;
+var imgEnemy1;
+var imgEnemy1Down1;
+var imgEnemy1Down2;
+var imgEnemy1Down3;
+var imgEnemy1Down4;
+var imgEnemy2;
+var imgEnemy2Down1;
+var imgEnemy2Down2;
+var imgEnemy2Down3;
+var imgEnemy2Down4;
+var imgEnemy3Down1;
+var imgEnemy3Down2;
+var imgEnemy3Down3;
+var imgEnemy3Down4;
+var imgEnemy3Down5;
+var imgEnemy3Down6;
+var imgEnemy3Hit;
+var imgEnemy3N1;
+var imgEnemy3N2;
+var imgGameLoading1;
+var imgGameLoading2;
+var imgGameLoading3;
+var imgGameLoading4;
+var imgGamePause_nor;
+var imgHero1;
+var imgHero2;
+var imgHeroBlowup_n1;
+var imgHeroBlowup_n2;
+var imgHeroBlowup_n3;
+var imgHeroBlowup_n4;
+var imgStart;
