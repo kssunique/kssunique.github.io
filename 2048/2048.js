@@ -2,11 +2,11 @@ var game={
 	data:null,//保存游戏的数据
 	RN:4,//保存总行数
 	CN:4,//保存总列数
-  score:2048,//保存目前得分
-  top:0,//保存最高得分
-  state:1,//保存游戏状态的编号
-  GAMEOVER:0,//标识游戏结束状态
-  RUNNING:1,//标识游戏进行中状态
+	score:2048,//保存目前得分
+	top:0,//保存最高得分
+	state:1,//保存游戏状态的编号
+	GAMEOVER:0,//标识游戏结束状态
+	RUNNING:1,//标识游戏进行中状态
 
   init:function(){//生成gridPanel中的所有div
     var div=document.getElementById("gridPanel");
