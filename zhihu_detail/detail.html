@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  ng-app="myModule">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+
+  <title>知乎详情页</title>
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
+
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+</html>
+<body ng-controller="mainCtrl">
+<div class="navbar navbar-default navbar-fixed-top" name="top">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand"></a>
+      <!--<a href="#" class="btn btn-default navbar-toggle"></a>-->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#zhihu-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="zhihu-collapse">
+      <form action="" class="navbar-form navbar-left">
+        <div class="form-group has-feedback">
+          <label for="kw" class="sr-only">搜索</label>
+          <input type="text" class="form-control" id="kw" placeholder="搜索问题、话题或人...">
+          <span class="glyphicon glyphicon-search form-control-feedback"></span>
+        </div>
+      </form>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">首页</a></li>
+        <li><a href="#">话题</a></li>
+        <li><a href="#">发现</a></li>
+        <li><a href="#">消息</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#" class="top-add-question">提问</a>
+          <div></div>
+        </li>
+        <li>
+          <a href="#" class="top-add-question" data-toggle="modal" data-target="#register">登录</a>
+          <div id="register" class="modal fade">   <!--半透明的黑色遮罩层-->
+            <div class="modal-dialog">        <!--宽/位置-->
+              <div class="modal-content">     <!--背景色/边框-->
+                <div class="modal-header">
+                  <!--<span class="close" data-dismiss="modal">&times;</span>-->
+                  <!--<h3 class="modal-title">User Register</h3>-->
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#p1" ><h3>User Register</h3></a></li>
+                    <li><a data-toggle="tab" href="#p2"><h3>User Login</h3></a></li>
+                  </ul>
+                </div>
+                <div class="modal-body">
+                  <div class="tab-content">
+                    <div id="p1" class="fade tab-pane active in">
+                      <form action="">
+                        <div class="form-group">
+                          <label for="uname">用户名：</label>
+                          <input class="form-control" id="uname" type="text" placeholder="姓名">
+                        </div>
+                        <div class="form-group">
+                          <label for="upwd">密码：</label>
+                          <input class="form-control" id="upwd" type="password" placeholder="密码(不少于6位)">
+                        </div>
+                        <div class="form-group">
+                          <label for="phone">手机号：</label>
+                          <input class="form-control" id="phone" type="number" placeholder="手机号(仅支持中国大陆)">
+                        </div>
+                      </form>
+                    </div>
+                    <div id="p2" class="fade tab-pane">
+                      <form action="" >
+                        <div class="form-group">
+                          <label for="uname">用户名：</label>
+                          <input class="form-control" id="uname" type="text"  placeholder="请输入姓名">
+                        </div>
+                        <div class="form-group">
+                          <label for="upwd">密码：</label>
+                          <input class="form-control" id="upwd" type="password"  placeholder="请输入密码">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <input class="btn btn-success"  data-dismiss="modal" type="button" value="提交">
+                  <input class="btn btn-danger" data-dismiss="modal" type="button" value="关闭">
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clearfix zu-main">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-xs-12">
+        <div class="main-content">
+          <div class="section" id="home-list-title">
+            <i class="icon icon-feedlist "></i>
+            <span>最新动态</span>
+            <span class="right"><a href="#">
+              <i class="icon icon-settings"></i>
+              设置
+            </a></span>
+          </div>
+          <div class="question-list">
+            <div class="feed-item" ng-repeat="q in questionList">
+              <div class="media">
+                <div class="media-left">
+                  <a href="#" class="avatar"><img ng-src="img/{{q.img_sm}}" class="media-object" alt=""></a>
+                </div>
+                <div class="media-body">
+                  <div class="source"><a href="#" class="link">{{q.name}}</a> 赞同该回答 <span class="time">1小时前</span></div>
+                  <div class="content">
+                    <h2><a href="#" class="link">{{q.detail}}</a></h2>
+                    <div class="entry-body">
+                      <div class="item-vote">
+                        <a href="#" class="item-vote-count">577</a>
+                      </div>
+                      <div class="author-info"><a class="author-link link">{{q.u_name}}</a>{{q.s_intro}}</div>
+                      <div class="item-answer-detail summary clearfix">
+                        <img ng-src="img/{{q.img_lg}}" class="origin_image inline-img" alt="">
+                        {{q.material}}
+                        <a href="#" class="toggle-expand">查看全部</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="feed-meta">
+                    <div class="meta-panel">
+                      <a href="#"><i class="icon-follow icon"></i>关注问题</a>
+                      <a href="#" class="meta-item"><i class="icon-comment icon"></i>125条评论</a>
+                      <a href="#" class="meta-item"><i class="icon-thank icon"></i>感谢</a>
+                      <a href="#" class="meta-item"><i class="icon-share icon"></i>分享</a>
+                      <a href="#" class="meta-item"><i class="icon-collect icon"></i>收藏</a>
+                      <span class="zg-bull">•</span>
+                      <a href="#">没有帮助</a>
+                      <span class="zg-bull">•</span>
+                      <a href="#">举报</a>
+                      <span class="zg-bull">•</span>
+                      <a href="#">作者保留权利</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button ng-if="hasMore" type="button" class="btn btn-default btn-block " ng-click="getMore()">
+                <span ng-hide="isLoading">加载更多……</span>
+                <img src="img/loading_ajax.gif" class="loading" alt="" ng-hide="!isLoading">
+              </button>
+              <div class="alert alert-danger " ng-hide="hasMore">已经没有更多了</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <div class="main-sidebar">
+          <div class="row">
+            <div class="col-md-12  col-sm-6 col-xs-12">
+             <div class="side-section">
+              <a href="#" class="side-section-inner"></a>
+            </div>
+            </div>
+            <div class="col-md-12  col-sm-6 col-xs-12">
+            <div class="side-section">
+              <div class="side-nav-group">
+                <ul class="side-nav">
+                  <li class="side-nav-li">
+                    <a href="#" class="side-nav-link">
+                      <i class="icon icon-sidenav-draft"></i>
+                      我的草稿
+                    </a>
+                  </li>
+                  <li class="side-nav-li">
+                    <a href="#" class="side-nav-link">
+                      <i class="icon icon-sidenav-fav"></i>
+                      我的收藏
+                    </a>
+                  </li>
+                  <li class="side-nav-li">
+                    <a href="#" class="side-nav-link">
+                      <i class="icon icon-sidenav-follow"></i>
+                      我关注的问题
+                    </a>
+                  </li>
+                  <li class="side-nav-li">
+                    <a href="#" class="side-nav-link">
+                      <i class="icon icon-sidenav-invite"></i>
+                      邀请我回答的问题
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="side-nav-group">
+                <ul class="side-nav">
+                  <li class="side-nav-li">
+                    <a href="#" class="side-nav-link">
+                      <i class="icon icon-sidenav-all"></i>
+                      所有问题
+                    </a>
+                  </li>
+                  <li class="side-nav-li">
+                    <a href="#" class="side-nav-link">
+                      <i class="icon icon-sidenav-plaza"></i>
+                      话题广场
+                    </a>
+                  </li>
+                  <li class="side-nav-li">
+                    <a href="#" class="side-nav-link">
+                      <i class="icon icon-sidenav-publicedit"></i>
+                      公共编辑状态
+                    </a>
+                  </li>
+                  <li class="side-nav-li">
+                    <a href="#" class="side-nav-link">
+                      <i class="ico ico-community"></i>
+                      社会服务中心
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </div>
+            <div class="col-md-12  col-sm-6 col-xs-12">
+            <div class="side-section side-list-content">
+              <h3><a href="#" class="right link-litblue">查看全部</a>知乎圆桌</h3>
+              <ul class="side-nav">
+                <li class="side-nav-li">
+                  <a href="#" class="side-nav-link">
+                    <img src="img/8c3df65f67205a9248c9e4ca54cd4aa4_s.png" alt="" class="avatar avatar-s">
+                    <span>偏见、歧视与不公</span>
+                  </a>
+                </li>
+                <li class="side-nav-li">
+                  <a href="#" class="side-nav-link">
+                    <img src="img/36da1c805d34067d446fab7837ae1781_s.png" alt="" class="avatar avatar-s">
+                    <span>我很焦虑</span>
+                  </a>
+                </li>
+                <li class="side-nav-li">
+                  <a href="#" class="side-nav-link">
+                    <img src="img/f5c88ca517773e6d842c5cf55f95ab84_s.png" alt="" class="avatar avatar-s">
+                    <span>探索地下铁</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            </div>
+              <div class="col-md-12  col-sm-6 col-xs-12">
+              <div class="side-section side-list-content">
+              <h3><a href="#" class="right link-litblue">查看全部</a>常去话题</h3>
+              <ul class="side-nav">
+                <li class="side-nav-li">
+                  <a href="#" class="side-nav-link">
+                    <img src="img/7d8c15df29ce6900c80f9cf630992687_s.jpg" alt="" class="avatar avatar-s">
+                    <span>电影</span>
+                  </a>
+                </li>
+                <li class="side-nav-li">
+                  <a href="#" class="side-nav-link">
+                    <img src="img/77bb73569321c6a9fdcb75cab81cf36d_s.jpg" alt="" class="avatar avatar-s">
+                    <span>音乐</span>
+                  </a>
+                </li>
+                <li class="side-nav-li">
+                  <a href="#" class="side-nav-link">
+                    <img src="img/f07808da5625fef3607f8b75b770349f_s.jpg" alt="" class="avatar avatar-s">
+                    <span>互联网</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+              </div>
+            <div class="col-md-12  col-sm-6 col-xs-12">
+            <div class="side-section side-list-content">
+              <h3><a href="#" class="right link-litblue">更多推荐</a>你可能感兴趣的人</h3>
+              <ul >
+                <li class="side-media-li">
+                  <a href="#" class="del"><i class="icon icon-ignore"></i></a>
+                  <div class="media">
+                    <div class="media-left">
+                      <a href="#" class="avatar"><img src="img/e890b7eba_m.jpg" alt=""></a>
+                    </div>
+                    <div class="media-body">
+                      <a href="#">梁边妖</a>
+                      <div class="headline">偶尔会发笑</div>
+                      <div class="ft">
+                        <span class="reason"><a href="#">纸豪</a> 等 2 人也关注了他</span>
+                        <span class="zg-bull">•</span>
+                        <a href="#" class="zg-follow">关注</a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="side-media-li">
+                  <a href="#" class="del"><i class="icon icon-ignore"></i></a>
+                  <div class="media">
+                    <div class="media-left">
+                      <a href="#" class="avatar"><img src="img/8f47d95fe3886e95408a1a27bfcf414a_m.jpg" alt=""></a>
+                    </div>
+                    <div class="media-body">
+                      <a href="#">yolfilm</a>
+                      <div class="headline">飞羽觞而醉月</div>
+                      <div class="ft">
+                        <span class="reason"><a href="#">码农白兰度</a> 等 2 人也关注了他</span>
+                        <span class="zg-bull">•</span>
+                        <a href="#" class="zg-follow">关注</a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="side-media-li">
+                  <a href="#" class="del"><i class="icon icon-ignore"></i></a>
+                  <div class="media">
+                    <div class="media-left">
+                      <a href="#" class="avatar"><img src="img/424c70919_m.jpg" alt=""></a>
+                    </div>
+                    <div class="media-body">
+                      <a href="#">张佳玮</a>
+                      <div class="headline">公众号：张佳玮写字的地方</div>
+                      <div class="ft">
+                        <span class="reason"><a href="#">纸豪</a> 等 2 人也关注了他</span>
+                        <span class="zg-bull">•</span>
+                        <a href="#" class="zg-follow">关注</a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="backtotop" style="opacity: 1;">
+      <a href="#top"><img src="img/20151218231256.png" alt=""></a>
+    </div>
+  </div>
+</div>
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/angular-route.js"></script>
+<script src="js/my.js"></script>
+
+</body>
